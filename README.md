@@ -1,1 +1,710 @@
-# Tinh-luong
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="theme-color" content="#2563eb">
+<title>Tính Lương Tăng Ca</title>
+<style>
+/* =========================
+   CÀI ĐẶT CHUNG
+========================= */
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+    background: #f3f4f6;
+    color: #111827;
+}
+.container {
+    width: 100%;
+    max-width: 520px;
+    margin: auto;
+    padding: 15px;
+}
+/* =========================
+   KHUNG
+========================= */
+.card {
+    background: white;
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow:
+        0 4px 15px rgba(0,0,0,0.08);
+}
+/* =========================
+   TIÊU ĐỀ
+========================= */
+h1 {
+    text-align: center;
+    font-size: 25px;
+    margin:
+        5px 0 7px;
+}
+.subtitle {
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+/* =========================
+   Ô NHẬP
+========================= */
+label {
+    display: block;
+    font-weight: 600;
+    margin-top: 14px;
+    margin-bottom: 7px;
+}
+input {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #d1d5db;
+    border-radius: 11px;
+    padding:
+        0 13px;
+    font-size: 18px;
+    outline: none;
+    background: white;
+}
+input:focus {
+    border-color: #2563eb;
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,0.12);
+}
+/* =========================
+   DÒNG TĂNG CA
+========================= */
+.rate {
+    display: grid;
+    grid-template-columns:
+        1fr 120px;
+    gap: 10px;
+    align-items: center;
+}
+.rate label {
+    margin: 0;
+}
+/* =========================
+   BUTTON
+========================= */
+button {
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.calculate {
+    background: #2563eb;
+    color: white;
+    margin-top: 22px;
+}
+.reset {
+    background: #e5e7eb;
+    color: #111827;
+    margin-top: 10px;
+}
+/* =========================
+   LỖI
+========================= */
+.error {
+    display: none;
+    color: #dc2626;
+    font-size: 14px;
+    margin-top: 10px;
+}
+/* =========================
+   KẾT QUẢ
+========================= */
+#result {
+    display: none;
+}
+.result-title {
+    font-size: 21px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+.row {
+    display: flex;
+    justify-content:
+        space-between;
+    gap: 15px;
+    padding: 9px 0;
+    border-bottom:
+        1px solid #eef0f2;
+}
+.name {
+    color: #4b5563;
+}
+.value {
+    font-weight: 700;
+    text-align: right;
+}
+/* =========================
+   KHUNG TĂNG CA
+========================= */
+.ot-box {
+    background: #eff6ff;
+    border-radius: 13px;
+    padding:
+        8px 14px;
+    margin-top: 15px;
+}
+/* =========================
+   TỔNG
+========================= */
+.total-box {
+    background: #dcfce7;
+    border-radius: 13px;
+    padding:
+        8px 14px;
+    margin-top: 14px;
+}
+.total-box .value {
+    font-size: 23px;
+}
+/* =========================
+   GHI CHÚ
+========================= */
+.note {
+    margin-top: 13px;
+    color: #6b7280;
+    font-size: 12px;
+    line-height: 1.5;
+}
+/* =========================
+   FOOTER
+========================= */
+.footer {
+    text-align: center;
+    color: #9ca3af;
+    font-size: 12px;
+    margin-top: 15px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<!-- =========================
+     PHẦN NHẬP
+========================= -->
+<div class="card">
+<h1>TÍNH LƯƠNG TĂNG CA</h1>
+<div class="subtitle">
+    Tính theo 26 ngày × 8 giờ/ngày
+</div>
+<!-- LƯƠNG CƠ BẢN -->
+<label for="basic">
+    Lương cơ bản (VNĐ)
+</label>
+<input
+    id="basic"
+    type="text"
+    inputmode="decimal"
+    placeholder="Ví dụ: 8.500.000"
+>
+<!-- 150% -->
+<div class="rate">
+    <label for="h150">
+        Tăng ca 150%
+    </label>
+    <input
+        id="h150"
+        type="text"
+        inputmode="decimal"
+        placeholder="Giờ"
+    >
+</div>
+<!-- 200% -->
+<div class="rate">
+    <label for="h200">
+        Tăng ca 200%
+    </label>
+    <input
+        id="h200"
+        type="text"
+        inputmode="decimal"
+        placeholder="Giờ"
+    >
+</div>
+<!-- 270% -->
+<div class="rate">
+    <label for="h270">
+        Tăng ca 270%
+    </label>
+    <input
+        id="h270"
+        type="text"
+        inputmode="decimal"
+        placeholder="Giờ"
+    >
+</div>
+<!-- 300% -->
+<div class="rate">
+    <label for="h300">
+        Tăng ca 300%
+    </label>
+    <input
+        id="h300"
+        type="text"
+        inputmode="decimal"
+        placeholder="Giờ"
+    >
+</div>
+<!-- 390% -->
+<div class="rate">
+    <label for="h390">
+        Tăng ca 390%
+    </label>
+    <input
+        id="h390"
+        type="text"
+        inputmode="decimal"
+        placeholder="Giờ"
+    >
+</div>
+<div
+    id="error"
+    class="error">
+</div>
+<!-- NÚT TÍNH -->
+<button
+    class="calculate"
+    onclick="calculateSalary()">
+    TÍNH LƯƠNG
+</button>
+<!-- NÚT XÓA -->
+<button
+    class="reset"
+    onclick="resetForm()">
+    XÓA
+</button>
+</div>
+<!-- =========================
+     PHẦN KẾT QUẢ
+========================= -->
+<div
+    class="card"
+    id="result">
+<div class="result-title">
+    KẾT QUẢ
+</div>
+<!-- LƯƠNG CƠ BẢN -->
+<div class="row">
+    <span class="name">
+        Lương cơ bản
+    </span>
+    <span
+        class="value"
+        id="rBasic">
+        0 ₫
+    </span>
+</div>
+<!-- LƯƠNG NGÀY -->
+<div class="row">
+    <span class="name">
+        Lương 1 ngày
+    </span>
+    <span
+        class="value"
+        id="rDay">
+        0 ₫
+    </span>
+</div>
+<!-- LƯƠNG GIỜ -->
+<div class="row">
+    <span class="name">
+        Lương 1 giờ
+    </span>
+    <span
+        class="value"
+        id="rHour">
+        0 ₫
+    </span>
+</div>
+<!-- =====================
+     TIỀN TĂNG CA
+====================== -->
+<div class="ot-box">
+    <div class="row">
+        <span class="name">
+            Tiền TC 150%
+        </span>
+        <span
+            class="value"
+            id="r150">
+            0 ₫
+        </span>
+    </div>
+    <div class="row">
+        <span class="name">
+            Tiền TC 200%
+        </span>
+        <span
+            class="value"
+            id="r200">
+            0 ₫
+        </span>
+    </div>
+    <div class="row">
+        <span class="name">
+            Tiền TC 270%
+        </span>
+        <span
+            class="value"
+            id="r270">
+            0 ₫
+        </span>
+    </div>
+    <div class="row">
+        <span class="name">
+            Tiền TC 300%
+        </span>
+        <span
+            class="value"
+            id="r300">
+            0 ₫
+        </span>
+    </div>
+    <div class="row">
+        <span class="name">
+            Tiền TC 390%
+        </span>
+        <span
+            class="value"
+            id="r390">
+            0 ₫
+        </span>
+    </div>
+</div>
+<!-- =====================
+     TỔNG
+====================== -->
+<div class="total-box">
+    <div class="row">
+        <span class="name">
+            <b>TỔNG TIỀN TĂNG CA</b>
+        </span>
+        <span
+            class="value"
+            id="rOT">
+            0 ₫
+        </span>
+    </div>
+    <div class="row">
+        <span class="name">
+            <b>TỔNG LƯƠNG</b>
+        </span>
+        <span
+            class="value"
+            id="rTotal">
+            0 ₫
+        </span>
+    </div>
+</div>
+<div class="note">
+    Công thức:
+    <br>
+    Lương 1 ngày =
+    Lương cơ bản ÷ 26
+    <br>
+    Lương 1 giờ =
+    Lương 1 ngày ÷ 8
+    <br>
+    Tiền tăng ca =
+    Số giờ × Lương 1 giờ × hệ số
+</div>
+</div>
+<div class="footer">
+Tính lương tăng ca
+</div>
+</div>
+<script>
+/* ==================================
+   CHUYỂN CHUỖI THÀNH SỐ
+================================== */
+function parseNumber(value) {
+    value =
+        String(value).trim();
+    if (value === "") {
+        return 0;
+    }
+    /*
+       Cho phép:
+       57,52
+       57.52
+       8.500.000
+       8,500,000
+    */
+    if (
+        value.includes(",")
+        &&
+        value.includes(".")
+    ) {
+        /*
+           Nếu dấu phẩy nằm cuối
+           -> phẩy là dấu thập phân
+        */
+        if (
+            value.lastIndexOf(",")
+            >
+            value.lastIndexOf(".")
+        ) {
+            value =
+                value
+                .replace(/\./g, "")
+                .replace(",", ".");
+        }
+        else {
+            value =
+                value
+                .replace(/,/g, "");
+        }
+    }
+    else if (
+        value.includes(",")
+    ) {
+        /*
+           Ví dụ:
+           57,52
+        */
+        value =
+            value.replace(",", ".");
+    }
+    else {
+        /*
+           Nếu có nhiều dấu chấm:
+           8.500.000
+           -> 8500000
+        */
+        let dots =
+            (
+                value.match(/\./g)
+                || []
+            ).length;
+        if (dots > 1) {
+            value =
+                value.replace(/\./g, "");
+        }
+    }
+    /*
+       Chỉ giữ số,
+       dấu chấm và dấu -
+    */
+    value =
+        value.replace(
+            /[^\d.-]/g,
+            ""
+        );
+    return Number(value);
+}
+/* ==================================
+   LẤY GIÁ TRỊ INPUT
+================================== */
+function getValue(id) {
+    let value =
+        parseNumber(
+            document
+            .getElementById(id)
+            .value
+        );
+    if (!isFinite(value)) {
+        return 0;
+    }
+    return value;
+}
+/* ==================================
+   ĐỊNH DẠNG TIỀN VIỆT NAM
+================================== */
+function money(number) {
+    return new Intl.NumberFormat(
+        "vi-VN",
+        {
+            maximumFractionDigits: 0
+        }
+    ).format(
+        Math.round(number)
+    ) + " ₫";
+}
+/* ==================================
+   TÍNH LƯƠNG
+================================== */
+function calculateSalary() {
+    /*
+       LẤY DỮ LIỆU
+    */
+    const basic =
+        getValue("basic");
+    const h150 =
+        getValue("h150");
+    const h200 =
+        getValue("h200");
+    const h270 =
+        getValue("h270");
+    const h300 =
+        getValue("h300");
+    const h390 =
+        getValue("h390");
+    /*
+       KIỂM TRA
+    */
+    const error =
+        document
+        .getElementById("error");
+    if (basic <= 0) {
+        error.textContent =
+            "Vui lòng nhập lương cơ bản.";
+        error.style.display =
+            "block";
+        return;
+    }
+    if (
+        h150 < 0 ||
+        h200 < 0 ||
+        h270 < 0 ||
+        h300 < 0 ||
+        h390 < 0
+    ) {
+        error.textContent =
+            "Số giờ tăng ca không được âm.";
+        error.style.display =
+            "block";
+        return;
+    }
+    error.style.display =
+        "none";
+    /*
+       TÍNH LƯƠNG
+    */
+    const luongNgay =
+        basic / 26;
+    const luongGio =
+        luongNgay / 8;
+    /*
+       TÍNH TĂNG CA
+    */
+    const tien150 =
+        h150 *
+        luongGio *
+        1.5;
+    const tien200 =
+        h200 *
+        luongGio *
+        2.0;
+    const tien270 =
+        h270 *
+        luongGio *
+        2.7;
+    const tien300 =
+        h300 *
+        luongGio *
+        3.0;
+    const tien390 =
+        h390 *
+        luongGio *
+        3.9;
+    /*
+       TỔNG
+    */
+    const tongTangCa =
+        tien150 +
+        tien200 +
+        tien270 +
+        tien300 +
+        tien390;
+    const tongLuong =
+        basic +
+        tongTangCa;
+    /*
+       HIỂN THỊ
+    */
+    document
+        .getElementById("rBasic")
+        .textContent =
+        money(basic);
+    document
+        .getElementById("rDay")
+        .textContent =
+        money(luongNgay);
+    document
+        .getElementById("rHour")
+        .textContent =
+        money(luongGio);
+    document
+        .getElementById("r150")
+        .textContent =
+        money(tien150);
+    document
+        .getElementById("r200")
+        .textContent =
+        money(tien200);
+    document
+        .getElementById("r270")
+        .textContent =
+        money(tien270);
+    document
+        .getElementById("r300")
+        .textContent =
+        money(tien300);
+    document
+        .getElementById("r390")
+        .textContent =
+        money(tien390);
+    document
+        .getElementById("rOT")
+        .textContent =
+        money(tongTangCa);
+    document
+        .getElementById("rTotal")
+        .textContent =
+        money(tongLuong);
+    /*
+       HIỆN KẾT QUẢ
+    */
+    const result =
+        document
+        .getElementById("result");
+    result.style.display =
+        "block";
+    /*
+       Cuộn xuống kết quả
+    */
+    result.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+/* ==================================
+   XÓA
+================================== */
+function resetForm() {
+    document
+        .querySelectorAll("input")
+        .forEach(
+            input => input.value = ""
+        );
+    document
+        .getElementById("result")
+        .style.display =
+        "none";
+    document
+        .getElementById("error")
+        .style.display =
+        "none";
+}
+</script>
+</body>
+</html>
